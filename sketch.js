@@ -28,7 +28,9 @@ function preload(){
   obstacle4 = loadImage("obstacle4.png");
   obstacle5 = loadImage("obstacle5.png");
   obstacle6 = loadImage("obstacle6.png");
-  
+  jump = loadSound("jump.mp3");
+  check = loadSound("checkPoint.mp3");
+  die = loadSound("die.mp3");
   gameOverImg = loadImage("gameOver.png");
   restartImg = loadImage("restart.png");
 }
@@ -79,7 +81,8 @@ function draw() {
   
     if(keyDown("space") && trex.y >= 159) {
       trex.velocityY = -12;
-    }
+      jump.play();
+         }
   
     trex.velocityY = trex.velocityY + 0.8
   
@@ -93,7 +96,11 @@ function draw() {
   
     if(obstaclesGroup.isTouching(trex)){
         gameState = END;
+      die.play();
     }
+  }
+  if(score%100 === 0){
+    check.play();
   }
   else if (gameState === END) {
     gameOver.visible = true;
